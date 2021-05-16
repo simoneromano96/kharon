@@ -1,0 +1,9 @@
+# Database
+database:
+  uri: postgres://casbin:casbin@localhost:5432/casbin
+# Casbin access model
+casbin:
+  accessmodelpath: ./environments/access_model/rbac_model.conf
+# HTTP Server
+# server:
+#   port: 3999
