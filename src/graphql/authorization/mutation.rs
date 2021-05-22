@@ -1,5 +1,5 @@
 use async_graphql::{Context, Object, Result};
-use sqlx_adapter::casbin::MgmtApi;
+use sqlx_adapter::casbin::{MgmtApi, RbacApi};
 
 use crate::types::AppContext;
 
@@ -25,5 +25,25 @@ impl AuthorizationMutation {
 			.expect("Cannot add policy");
 
 		Ok(String::from(format!("Added: {:?}", added)))
+	}
+
+	/// Add role to a user
+	async fn add_role_for_user(&self, ctx: &Context<'_>, user: String, role: String, domain: String) -> Result<String> {
+		let AppContext { enforcer } = ctx.data()?;
+		let mut e = enforcer.lock().await;
+
+    let added = e.add_role_for_user(&user, &role, Some(&domain)).await?;
+    
+		Ok(String::from(format!("Added: {:?}", added)))
+	}
+
+	/// Add roles to a user
+	async fn add_roles_for_user(&self, ctx: &Context<'_>, user: String, roles: Vec<String>, domain: String) -> Result<String> {
+		let AppContext { enforcer } = ctx.data()?;
+		let mut e = enforcer.lock().await;
+
+    let all_added = e.add_roles_for_user(&user, roles, Some(&domain)).await?;
+    
+		Ok(String::from(format!("Added: {:?}", all_added)))
 	}
 }
