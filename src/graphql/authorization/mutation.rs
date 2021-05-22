@@ -46,4 +46,24 @@ impl AuthorizationMutation {
     
 		Ok(String::from(format!("Added: {:?}", all_added)))
 	}
+
+	/// Delete role from a user
+	async fn delete_role_for_user(&self, ctx: &Context<'_>, user: String, role: String, domain: String) -> Result<String> {
+		let AppContext { enforcer } = ctx.data()?;
+		let mut e = enforcer.lock().await;
+
+    let added = e.delete_role_for_user(&user, &role, Some(&domain)).await?;
+    
+		Ok(String::from(format!("Deleted: {:?}", added)))
+	}
+
+	/// Delete all roles from a user
+	async fn delete_all_roles_for_user(&self, ctx: &Context<'_>, user: String, domain: String) -> Result<String> {
+		let AppContext { enforcer } = ctx.data()?;
+		let mut e = enforcer.lock().await;
+
+    let all_added = e.delete_roles_for_user(&user, Some(&domain)).await?;
+    
+		Ok(String::from(format!("Deleted: {:?}", all_added)))
+	}
 }
