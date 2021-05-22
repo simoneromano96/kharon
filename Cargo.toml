@@ -10,11 +10,11 @@ readme = "README.md"
 
 [dependencies]
 # HTTP Server
-actix-web = { version = "4.0.0-beta.6" }
+actix-web = "4.0.0-beta.6"
 # GraphQL Implementation
-async-graphql = { git = "https://github.com/simoneromano96/async-graphql.git", branch = "actix-web-v4-beta", rev = "c7d678e1566c6ddafb3f1cb65656475b29c11bed" }
+async-graphql = { git = "https://github.com/simoneromano96/async-graphql.git", rev = "6888194c829c5499895bde5450483f5727a00051" }
 # GraphQL Actix Adapter
-async-graphql-actix-web = { git = "https://github.com/simoneromano96/async-graphql.git", branch = "actix-web-v4-beta", rev = "c7d678e1566c6ddafb3f1cb65656475b29c11bed" }
+async-graphql-actix-web = { git = "https://github.com/simoneromano96/async-graphql.git", rev = "6888194c829c5499895bde5450483f5727a00051" }
 # Configuration helper
 config = { version = "0.11.0", default-features = false, features = ["yaml"] }
 # Lazy static evaluation
