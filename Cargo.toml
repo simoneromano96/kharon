@@ -23,3 +23,5 @@ serde = "1.0.126"
 sqlx = { version = "0.5.2", default-features = false, features = [ "runtime-actix-native-tls", "macros", "postgres", "migrate" ] }
 # Casbin adapter for SQLx
 sqlx-adapter = { version = "0.4.1", default-features = false, features = ["postgres", "runtime-actix-native-tls", "offline"] }
+# Tokio runtime
+tokio = "1.6.0"
