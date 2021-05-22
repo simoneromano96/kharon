@@ -1,0 +1,19 @@
+---
+kind: pipeline
+name: kharon
+
+steps:
+  - name: build
+    image: plugins/docker
+    settings:
+      registry: ghcr.io
+      username: simoneromano96
+      password: 
+        from_secret: token
+      repo: ghcr.io/simoneromano96/federation-graphql-rust/kharon
+      context: .
+      dockerfile: ./.docker/kharon.dockerfile
+      auto_tag: true
+      target: production
+      config:
+        from_secret: docker_auth_config

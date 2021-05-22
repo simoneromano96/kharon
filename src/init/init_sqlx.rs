@@ -11,9 +11,9 @@ pub async fn init_sqlx() -> Result<Pool<Postgres>> {
 
   // info!("DB client initialised");
 
-  sqlx::migrate!("src/sql/migrations")
-      .run(&pool)
-      .await?;
+  // sqlx::migrate!("src/sql/migrations")
+  //     .run(&pool)
+  //     .await?;
 
   Ok(pool)
 }
