@@ -1,5 +1,5 @@
 use async_graphql::{Context, Object, Result};
-use sqlx_adapter::casbin::{MgmtApi, RbacApi};
+use casbinrs_mongo_adapter::casbin::{MgmtApi, RbacApi};
 
 use crate::types::AppContext;
 
@@ -11,7 +11,6 @@ pub struct AuthorizationMutation;
 #[Object]
 impl AuthorizationMutation {
 	/// Create a permission
-	/*
 	async fn create_permission(&self, ctx: &Context<'_>, input: PermissionInput) -> Result<String> {
 		let AppContext { enforcer } = ctx.data()?;
 
@@ -27,7 +26,6 @@ impl AuthorizationMutation {
 
 		Ok(String::from(format!("Added: {:?}", added)))
 	}
-	*/
 
 	/// Add role to a user
 	async fn add_role_for_user(&self, ctx: &Context<'_>, user: String, role: String, domain: String) -> Result<String> {

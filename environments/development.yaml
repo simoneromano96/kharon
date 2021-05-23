@@ -1,6 +1,6 @@
 # Database
 database:
-  uri: postgres://casbin:casbin@localhost:5432/casbin
+  uri: mongodb://root:example@localhost:27017
 # Casbin access model
 casbin:
   accessmodelpath: ./environments/access_model/rbac_model.conf

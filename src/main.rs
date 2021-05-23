@@ -14,7 +14,7 @@ use async_graphql::{
 use async_graphql::{Context, Data, EmptyMutation, Object, Schema, Subscription};
 use async_graphql_actix_web::{Request, Response, WSSubscription};
 use graphql::{MutationRoot, MySchema, QueryRoot};
-use init::{init_casbin, init_sqlx};
+use init::{init_casbin};
 use types::AppContext;
 
 struct MyToken(String);
@@ -80,7 +80,7 @@ async fn index_ws(
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-	let database = init_sqlx().await.expect("Could not initialize DB");
+	// let database = init_sqlx().await.expect("Could not initialize DB");
 
 	let enforcer = init_casbin().await.expect("Could not init casbin");
 

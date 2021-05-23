@@ -1,5 +1,5 @@
 use async_graphql::{Context, ID, Object, Result};
-use sqlx_adapter::casbin::RbacApi;
+use casbinrs_mongo_adapter::casbin::RbacApi;
 
 use crate::{AppContext};
 

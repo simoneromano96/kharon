@@ -1,41 +1,23 @@
-version: '3'
+version: "3"
 
 services:
-  postgres:
-    # build: 
-    #   context: ./.docker
-    #   dockerfile: postgres.dockerfile
-    image: postgres:alpine
+  mongo:
+    image: mongo
     restart: unless-stopped
-    environment:
-      POSTGRES_USER: casbin
-      POSTGRES_PASSWORD: casbin
-      POSTGRES_DB: casbin
     ports: 
-      - 5432:5432
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    command: ["postgres", "-c", "log_statement=all"]
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
 
-  adminer:
-    image: adminer
+  mongo-express:
+    image: mongo-express
     restart: unless-stopped
     ports:
-      - 8080:8080
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
 
-#  app:
-#    build: 
-#      context: .
-#      dockerfile: ./.docker/acpm-service.dockerfile
-#    restart: unless-stopped
-#    depends_on: 
-#      - postgres
-#    environment: 
-#      APP_DATABASE_URI: postgres://casbin:casbin@postgres:5432/casbin
-#      APP_CASBIN_ACCESSMODELPATH: /acpm-service/environments/access_model/rbac_model.conf
-#    ports: 
-#      - 8000:8000
-    
-
-volumes: 
-  postgres_data:
+# volumes:
+#   postgres_data:

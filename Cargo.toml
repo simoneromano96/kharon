@@ -1,7 +1,7 @@
 [package]
 name = "kharon"
 version = "0.1.0"
-authors = ["simone.romano <simone.romano@noku.io>"]
+authors = ["Simono il magnifico <simoneromano@tutanota.de>"]
 edition = "2018"
 license = "MIT/Apache-2.0"
 readme = "README.md"
@@ -10,11 +10,11 @@ readme = "README.md"
 
 [dependencies]
 # HTTP Server
-actix-web = "4.0.0-beta.6"
+actix-web = "3.3.2"
 # GraphQL Implementation
-async-graphql = { git = "https://github.com/simoneromano96/async-graphql.git", rev = "f3e38b6bf79977737f8f72cae8ed2c36f1c01ea5" }
+async-graphql = "2.8.5"
 # GraphQL Actix Adapter
-async-graphql-actix-web = { git = "https://github.com/simoneromano96/async-graphql.git", rev = "f3e38b6bf79977737f8f72cae8ed2c36f1c01ea5" }
+async-graphql-actix-web = "2.8.5"
 # Configuration helper
 config = { version = "0.11.0", default-features = false, features = ["yaml"] }
 # Lazy static evaluation
@@ -22,8 +22,10 @@ once_cell = "1.7.2"
 # Serialization/Deserialization
 serde = "1.0.126"
 # SQLx
-sqlx = { version = "0.5.2", default-features = false, features = [ "runtime-actix-native-tls", "macros", "postgres", "migrate" ] }
+# sqlx = { version = "0.5.2", default-features = false, features = [ "runtime-actix-native-tls", "macros", "postgres", "migrate" ] }
 # Casbin adapter for SQLx
-sqlx-adapter = { version = "0.4.1", default-features = false, features = ["postgres", "runtime-actix-native-tls", "offline"] }
+# sqlx-adapter = { version = "0.4.1", default-features = false, features = ["postgres", "runtime-actix-native-tls", "offline"] }
+# Casbin adapter for mongo
+casbinrs-mongo-adapter = { git = "https://github.com/simoneromano96/casbinrs-mongo-adapter.git", rev = "b4257c9aee95332766acfe4d3aef211cc9f90e35" }
 # Tokio runtime
-tokio = "1.6.0"
+tokio = "0.2.25"
