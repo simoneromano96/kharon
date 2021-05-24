@@ -4,6 +4,6 @@ use serde::{Deserialize, Serialize};
 #[serde(rename_all = "camelCase")]
 /// SQL database configuration
 pub struct DatabaseConfig {
-  /// DB Connection URI
-  pub uri: String,
+	/// DB Connection URI
+	pub uri: String,
 }

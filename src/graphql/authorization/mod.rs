@@ -1,7 +1,7 @@
-pub mod mutation;
 pub mod input;
+pub mod mutation;
 pub mod query;
 
+pub use input::*;
 pub use mutation::*;
 pub use query::*;
-pub use input::*;

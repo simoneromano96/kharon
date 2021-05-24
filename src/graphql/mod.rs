@@ -1,6 +1,6 @@
 pub mod authorization;
 
-use async_graphql::{EmptySubscription, Schema, MergedObject};
+use async_graphql::{EmptySubscription, MergedObject, Schema};
 
 use self::authorization::{AuthorizationMutation, AuthorizationQuery};
 

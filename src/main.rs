@@ -3,7 +3,7 @@ mod init;
 mod settings;
 mod types;
 
-use std::sync::{Arc};
+use std::sync::Arc;
 use tokio::sync::Mutex;
 
 use actix_web::{guard, web, App, HttpRequest, HttpResponse, HttpServer, Result};
@@ -14,8 +14,10 @@ use async_graphql::{
 use async_graphql::{Context, Data, EmptyMutation, Object, Schema, Subscription};
 use async_graphql_actix_web::{Request, Response, WSSubscription};
 use graphql::{MutationRoot, MySchema, QueryRoot};
-use init::{init_casbin};
+use init::init_casbin;
 use types::AppContext;
+
+use crate::settings::APP_SETTINGS;
 
 struct MyToken(String);
 
@@ -34,10 +36,7 @@ impl SubscriptionRoot {
 */
 
 async fn index(schema: web::Data<MySchema>, req: HttpRequest, gql_request: Request) -> Response {
-	let token = req
-		.headers()
-		.get("Token")
-		.and_then(|value| value.to_str().map(|s| MyToken(s.to_string())).ok());
+	let token = req.headers().get("Token").and_then(|value| value.to_str().map(|s| MyToken(s.to_string())).ok());
 	let mut request = gql_request.into_inner();
 	if let Some(token) = token {
 		request = request.data(token);
@@ -88,14 +87,10 @@ async fn main() -> std::io::Result<()> {
 
 	let app_context = AppContext { enforcer };
 
-	let schema = Schema::build(QueryRoot::default(), MutationRoot::default(), EmptySubscription)
-		.data(app_context)
-		.finish();
+	let schema = Schema::build(QueryRoot::default(), MutationRoot::default(), EmptySubscription).data(app_context).finish();
 
 	HttpServer::new(move || {
-		App::new()
-			.data(schema.clone())
-			.service(web::resource("/graphql").guard(guard::Post()).to(index))
+		App::new().data(schema.clone()).service(web::resource("/graphql").guard(guard::Post()).to(index))
 		// .service(
 		//     web::resource("/")
 		//         .guard(guard::Get())
@@ -104,7 +99,7 @@ async fn main() -> std::io::Result<()> {
 		// )
 		// .service(web::resource("/").guard(guard::Get()).to(gql_playgound))
 	})
-	.bind("0.0.0.0:8000")?
+	.bind(format!("0.0.0.0:{}", APP_SETTINGS.app.port))?
 	.run()
 	.await
 }

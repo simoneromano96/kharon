@@ -11,16 +11,15 @@ pub struct AuthorizationMutation;
 #[Object]
 impl AuthorizationMutation {
 	/// Create a permission
-	/// In the RBAC API the subject is the role
+	///
+	/// In the RBAC API the subject is the role, in the ABAC API the subhect is the user
 	async fn create_permission(&self, ctx: &Context<'_>, input: PermissionInput) -> Result<String> {
 		let AppContext { enforcer } = ctx.data()?;
 
 		let PermissionInput { subject, domain, action, object } = input;
 		let mut e = enforcer.lock().await;
 
-		let added = e
-			.add_policy(vec![subject, domain, object, action])
-			.await?;
+		let added = e.add_policy(vec![subject, domain, object, action]).await?;
 
 		Ok(String::from(format!("Added: {:?}", added)))
 	}
@@ -30,8 +29,8 @@ impl AuthorizationMutation {
 		let AppContext { enforcer } = ctx.data()?;
 		let mut e = enforcer.lock().await;
 
-    let added = e.add_role_for_user(&user, &role, Some(&domain)).await?;
-    
+		let added = e.add_role_for_user(&user, &role, Some(&domain)).await?;
+
 		Ok(String::from(format!("Added: {:?}", added)))
 	}
 
@@ -40,8 +39,8 @@ impl AuthorizationMutation {
 		let AppContext { enforcer } = ctx.data()?;
 		let mut e = enforcer.lock().await;
 
-    let all_added = e.add_roles_for_user(&user, roles, Some(&domain)).await?;
-    
+		let all_added = e.add_roles_for_user(&user, roles, Some(&domain)).await?;
+
 		Ok(String::from(format!("Added: {:?}", all_added)))
 	}
 
@@ -70,8 +69,8 @@ impl AuthorizationMutation {
 		let AppContext { enforcer } = ctx.data()?;
 		let mut e = enforcer.lock().await;
 
-    let added = e.delete_role_for_user(&user, &role, Some(&domain)).await?;
-    
+		let added = e.delete_role_for_user(&user, &role, Some(&domain)).await?;
+
 		Ok(String::from(format!("Deleted: {:?}", added)))
 	}
 
@@ -80,8 +79,8 @@ impl AuthorizationMutation {
 		let AppContext { enforcer } = ctx.data()?;
 		let mut e = enforcer.lock().await;
 
-    let all_added = e.delete_roles_for_user(&user, Some(&domain)).await?;
-    
+		let all_added = e.delete_roles_for_user(&user, Some(&domain)).await?;
+
 		Ok(String::from(format!("Deleted: {:?}", all_added)))
 	}
 
@@ -90,8 +89,8 @@ impl AuthorizationMutation {
 		let AppContext { enforcer } = ctx.data()?;
 		let mut e = enforcer.lock().await;
 
-    let deleted = e.delete_user(&user).await?;
-    
+		let deleted = e.delete_user(&user).await?;
+
 		Ok(String::from(format!("Deleted: {:?}", deleted)))
 	}
 
@@ -100,8 +99,8 @@ impl AuthorizationMutation {
 		let AppContext { enforcer } = ctx.data()?;
 		let mut e = enforcer.lock().await;
 
-    let deleted = e.delete_role(&role).await?;
-    
+		let deleted = e.delete_role(&role).await?;
+
 		Ok(String::from(format!("Deleted: {:?}", deleted)))
 	}
 
@@ -110,8 +109,8 @@ impl AuthorizationMutation {
 		let AppContext { enforcer } = ctx.data()?;
 		let mut e = enforcer.lock().await;
 
-    let deleted = e.delete_permission(vec![permission]).await?;
-    
+		let deleted = e.delete_permission(vec![permission]).await?;
+
 		Ok(String::from(format!("Deleted: {:?}", deleted)))
 	}
 }

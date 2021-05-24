@@ -5,5 +5,5 @@ database:
 casbin:
   accessmodelpath: ./environments/access_model/rbac_model.conf
 # HTTP Server
-# server:
-#   port: 3999
+app:
+  port: 8000
