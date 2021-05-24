@@ -10,7 +10,7 @@ steps:
       username: simoneromano96
       password: 
         from_secret: token
-      repo: ghcr.io/simoneromano96/federation-graphql-rust/kharon
+      repo: ghcr.io/simoneromano96/kharon
       context: .
       dockerfile: ./.docker/kharon.dockerfile
       auto_tag: true
