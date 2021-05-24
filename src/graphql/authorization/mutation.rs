@@ -12,7 +12,7 @@ pub struct AuthorizationMutation;
 impl AuthorizationMutation {
 	/// Create a permission
 	///
-	/// In the RBAC API the subject is the role, in the ABAC API the subhect is the user
+	/// In the RBAC API the subject is the role, in the ABAC API the subject is the user
 	#[graphql(guard(ClientGuard()))]
 	async fn create_permission(&self, ctx: &Context<'_>, input: PermissionInput) -> Result<String> {
 		let AppContext { enforcer, .. } = ctx.data()?;
