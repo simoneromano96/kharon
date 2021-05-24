@@ -19,7 +19,7 @@ impl AuthorizationMutation {
 		let mut e = enforcer.lock().await;
 
 		let added = e
-			.add_policy(vec![subject.clone(), domain.clone(), object.clone(), action.clone()])
+			.add_policy(vec![subject, domain, object, action])
 			.await
 			.expect("Cannot add policy");
 
