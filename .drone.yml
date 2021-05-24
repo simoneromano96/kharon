@@ -3,7 +3,22 @@ kind: pipeline
 name: kharon
 
 steps:
-  - name: build
+  #- name: start-mongodb
+  #  image: mongodb
+  #  environment:
+  #    MONGO_INITDB_ROOT_USERNAME: root
+  #    MONGO_INITDB_ROOT_PASSWORD: example
+  #  detatch: true
+  #
+  #- name: test-kharon
+  #  image: rust
+  #  environment:
+  #    APP_DATABASE_URI: mongodb://root:example@start-mongodb:27017
+  #  commands:
+  #    - cargo build --verbose --all
+  #    - cargo test --verbose --all
+
+  - name: build-release
     image: plugins/docker
     settings:
       registry: ghcr.io

@@ -41,3 +41,12 @@ thiserror = "1.0.25"
 tokio = "0.2.25"
 # Mongo ODM
 wither = "0.9.0"
+
+# Test
+[dev-dependencies]
+actix-rt = "2.2.0"
+# GraphQL client
+cynic = "0.13.2"
+serde_json = "1.0.64"
+# Tokio runtime
+tokio = "0.2.25"
