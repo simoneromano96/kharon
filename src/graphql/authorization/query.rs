@@ -1,4 +1,4 @@
-use async_graphql::{Context, Object, Result, guard::Guard};
+use async_graphql::{Context, Error, Object, Result, guard::Guard};
 use casbinrs_mongo_adapter::casbin::{CoreApi, RbacApi};
 
 use crate::{graphql::client_guard::ClientGuard, types::AppContext};
@@ -27,7 +27,11 @@ impl AuthorizationQuery {
 
 		let authorized = e.has_permission_for_user(&subject, vec![domain, object, action]);
 
-		Ok(String::from(if authorized { "Authorized" } else { "Not authorized" }))
+		if authorized {
+			Ok(String::from("Authorized"))
+		} else {
+			Err(Error::from("Not authorized"))
+		}
 	}
 
 	/// Ask if someone has a permission
@@ -49,7 +53,11 @@ impl AuthorizationQuery {
 
 		let authorized = e.enforce((subject, domain, object, action))?;
 
-		Ok(String::from(if authorized { "Authorized" } else { "Not authorized" }))
+		if authorized {
+			Ok(String::from("Authorized"))
+		} else {
+			Err(Error::from("Not authorized"))
+		}
 	}
 
 	/// Ask all the roles of a user
