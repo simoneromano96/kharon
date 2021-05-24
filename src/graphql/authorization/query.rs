@@ -1,5 +1,5 @@
 use async_graphql::{Context, ID, Object, Result};
-use casbinrs_mongo_adapter::casbin::RbacApi;
+use casbinrs_mongo_adapter::casbin::{CoreApi, RbacApi};
 
 use crate::{AppContext};
 
@@ -11,7 +11,8 @@ pub struct AuthorizationQuery;
 #[Object]
 impl AuthorizationQuery {
   /// Ask if someone has a permission
-  /// The subject can be either a user or a role
+  /// 
+  /// This only works with ABAC
   async fn has_permission(&self, ctx: &Context<'_>, input: PermissionInput) -> Result<String> {
     let AppContext { enforcer } = ctx.data()?;
 
@@ -19,6 +20,26 @@ impl AuthorizationQuery {
     let e = enforcer.lock().await;
 
     let authorized = e.has_permission_for_user(&subject, vec![domain, object, action]);
+
+    Ok(String::from(
+      if authorized {
+        "Authorized"
+      } else {
+        "Not authorized"
+      }
+    ))
+  }    
+  
+  /// Ask if someone has a permission
+  ///
+  /// The subject can be either a user or a role
+  async fn enforce_permission(&self, ctx: &Context<'_>, input: PermissionInput) -> Result<String> {
+    let AppContext { enforcer } = ctx.data()?;
+
+		let PermissionInput { subject, domain, action, object } = input;
+    let e = enforcer.lock().await;
+
+    let authorized = e.enforce((subject, domain, object, action))?;
 
     Ok(String::from(
       if authorized {

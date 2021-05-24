@@ -20,8 +20,7 @@ impl AuthorizationMutation {
 
 		let added = e
 			.add_policy(vec![subject, domain, object, action])
-			.await
-			.expect("Cannot add policy");
+			.await?;
 
 		Ok(String::from(format!("Added: {:?}", added)))
 	}
