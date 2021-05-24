@@ -1,4 +1,5 @@
 pub mod authorization;
+pub mod client_guard;
 
 use async_graphql::{EmptySubscription, MergedObject, Schema};
 

@@ -1,3 +1,4 @@
+mod auth;
 mod graphql;
 mod init;
 mod settings;
@@ -6,20 +7,25 @@ mod types;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 
-use actix_web::{guard, web, App, HttpRequest, HttpResponse, HttpServer, Result};
+use actix_web::{guard, http::header::Header, web, App, HttpRequest, HttpServer};
+use actix_web_httpauth::{
+	headers::authorization::{Authorization, Basic},
+};
 use async_graphql::{
-	http::{playground_source, GraphQLPlaygroundConfig},
 	EmptySubscription,
 };
-use async_graphql::{Context, Data, EmptyMutation, Object, Schema, Subscription};
-use async_graphql_actix_web::{Request, Response, WSSubscription};
+use async_graphql::{Schema};
+use async_graphql_actix_web::{Request, Response};
 use graphql::{MutationRoot, MySchema, QueryRoot};
 use init::init_casbin;
 use types::AppContext;
+use web::Data;
 
-use crate::settings::APP_SETTINGS;
-
-struct MyToken(String);
+use crate::{
+	auth::{authenticate_client},
+	init::init_database,
+	settings::APP_SETTINGS,
+};
 
 /*
 struct SubscriptionRoot;
@@ -35,12 +41,16 @@ impl SubscriptionRoot {
 }
 */
 
-async fn index(schema: web::Data<MySchema>, req: HttpRequest, gql_request: Request) -> Response {
-	let token = req.headers().get("Token").and_then(|value| value.to_str().map(|s| MyToken(s.to_string())).ok());
+async fn index(schema: Data<MySchema>, app_context: Data<AppContext>, req: HttpRequest, gql_request: Request) -> Response {
+	let auth = Authorization::<Basic>::parse(&req);
+
 	let mut request = gql_request.into_inner();
-	if let Some(token) = token {
-		request = request.data(token);
+	if let Ok(token) = auth {
+		if let Ok(client) = authenticate_client(&app_context.database, token.into_scheme()).await {
+			request = request.data(client);
+		}
 	}
+
 	schema.execute(request).await.into()
 }
 
@@ -85,12 +95,19 @@ async fn main() -> std::io::Result<()> {
 
 	let enforcer = Arc::new(Mutex::new(enforcer));
 
-	let app_context = AppContext { enforcer };
+	let database = init_database().await.expect("Could not initialize database");
 
-	let schema = Schema::build(QueryRoot::default(), MutationRoot::default(), EmptySubscription).data(app_context).finish();
+	let app_context = AppContext { enforcer, database };
+
+	let schema = Schema::build(QueryRoot::default(), MutationRoot::default(), EmptySubscription)
+		.data(app_context.clone())
+		.finish();
 
 	HttpServer::new(move || {
-		App::new().data(schema.clone()).service(web::resource("/graphql").guard(guard::Post()).to(index))
+		App::new()
+			.data(schema.clone())
+			.data(app_context.clone())
+			.service(web::resource("/graphql").guard(guard::Post()).to(index))
 		// .service(
 		//     web::resource("/")
 		//         .guard(guard::Get())

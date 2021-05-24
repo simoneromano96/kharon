@@ -11,21 +11,33 @@ readme = "README.md"
 [dependencies]
 # HTTP Server
 actix-web = "3.3.2"
+# Bearer token extractor
+actix-web-httpauth = "0.5.1"
+# Error wrapper
+anyhow = "1.0.40"
 # GraphQL Implementation
 async-graphql = "2.8.5"
 # GraphQL Actix Adapter
 async-graphql-actix-web = "2.8.5"
+# Add async traits
+async-trait = "0.1.50"
+# Casbin adapter for mongo
+casbinrs-mongo-adapter = { git = "https://github.com/simoneromano96/casbinrs-mongo-adapter.git", rev = "b4257c9aee95332766acfe4d3aef211cc9f90e35" }
 # Configuration helper
 config = { version = "0.11.0", default-features = false, features = ["yaml"] }
+# Future helpers
+futures = "0.3.15"
 # Lazy static evaluation
 once_cell = "1.7.2"
 # Serialization/Deserialization
 serde = "1.0.126"
+# Error helpers
+thiserror = "1.0.25"
 # SQLx
 # sqlx = { version = "0.5.2", default-features = false, features = [ "runtime-actix-native-tls", "macros", "postgres", "migrate" ] }
 # Casbin adapter for SQLx
 # sqlx-adapter = { version = "0.4.1", default-features = false, features = ["postgres", "runtime-actix-native-tls", "offline"] }
-# Casbin adapter for mongo
-casbinrs-mongo-adapter = { git = "https://github.com/simoneromano96/casbinrs-mongo-adapter.git", rev = "b4257c9aee95332766acfe4d3aef211cc9f90e35" }
 # Tokio runtime
 tokio = "0.2.25"
+# Mongo ODM
+wither = "0.9.0"

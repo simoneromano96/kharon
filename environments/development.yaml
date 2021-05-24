@@ -1,6 +1,9 @@
 # Database
 database:
+  # Connection URI
   uri: mongodb://root:example@localhost:27017
+  # Database name
+  name: kharon
 # Casbin access model
 casbin:
   accessmodelpath: ./environments/access_model/rbac_model.conf

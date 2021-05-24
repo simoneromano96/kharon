@@ -6,4 +6,6 @@ use serde::{Deserialize, Serialize};
 pub struct DatabaseConfig {
 	/// DB Connection URI
 	pub uri: String,
+	/// Name of the database
+	pub name: String,
 }
