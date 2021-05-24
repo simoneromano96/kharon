@@ -9,4 +9,6 @@ pub struct PermissionInput {
   pub action: String,
   /// The destination of the action
   pub object: String,
+  /// The domain of the object
+  pub domain: String,
 }

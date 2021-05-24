@@ -11,16 +11,15 @@ pub struct AuthorizationMutation;
 #[Object]
 impl AuthorizationMutation {
 	/// Create a permission
+	/// In the RBAC API the subject is the role
 	async fn create_permission(&self, ctx: &Context<'_>, input: PermissionInput) -> Result<String> {
 		let AppContext { enforcer } = ctx.data()?;
 
-		let sub = &input.subject;
-		let obj = &input.object;
-		let act = &input.action;
+		let PermissionInput { subject, domain, action, object } = input;
 		let mut e = enforcer.lock().await;
 
 		let added = e
-			.add_policy(vec![sub.clone(), obj.clone(), act.clone()])
+			.add_policy(vec![subject.clone(), domain.clone(), object.clone(), action.clone()])
 			.await
 			.expect("Cannot add policy");
 
