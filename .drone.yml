@@ -32,3 +32,9 @@ steps:
       target: production
       config:
         from_secret: docker_auth_config
+
+  trigger:
+    event:
+    - tag
+    - promote
+    - rollback
