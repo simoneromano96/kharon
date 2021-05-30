@@ -5,6 +5,7 @@ authors = ["Simono il magnifico <simoneromano@tutanota.de>"]
 edition = "2018"
 license = "MIT/Apache-2.0"
 readme = "README.md"
+publish = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

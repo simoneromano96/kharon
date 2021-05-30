@@ -6,7 +6,7 @@ use crate::auth::AuthClient;
 
 #[derive(Error, Debug)]
 pub enum ClientGuardErrors {
-	#[error("Unauthenticated client in protected resolver!")]
+	#[error("Unauthenticated client in a protected resolver!")]
 	UnauthenticatedClient,
 }
 
