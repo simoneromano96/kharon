@@ -8,24 +8,15 @@ use std::sync::Arc;
 use tokio::sync::Mutex;
 
 use actix_web::{guard, http::header::Header, web, App, HttpRequest, HttpServer};
-use actix_web_httpauth::{
-	headers::authorization::{Authorization, Basic},
-};
-use async_graphql::{
-	EmptySubscription,
-};
-use async_graphql::{Schema};
+use actix_web_httpauth::headers::authorization::{Authorization, Basic};
+use async_graphql::EmptySubscription;
+use async_graphql::Schema;
 use async_graphql_actix_web::{Request, Response};
 use graphql::{MutationRoot, MySchema, QueryRoot};
 use init::init_casbin;
-use types::AppContext;
 use web::Data;
 
-use crate::{
-	auth::{authenticate_client},
-	init::init_database,
-	settings::APP_SETTINGS,
-};
+use crate::{auth::authenticate_client, init::init_sqlx, settings::APP_SETTINGS, types::AppContext};
 
 /*
 struct SubscriptionRoot;
@@ -89,13 +80,13 @@ async fn index_ws(
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-	// let database = init_sqlx().await.expect("Could not initialize DB");
+	let database = init_sqlx().await.expect("Could not initialize database");
 
-	let enforcer = init_casbin().await.expect("Could not init casbin");
+	let enforcer = init_casbin().await.expect("Could not initialize casbin");
 
 	let enforcer = Arc::new(Mutex::new(enforcer));
 
-	let database = init_database().await.expect("Could not initialize database");
+	// let database = init_database().await.expect("Could not initialize database");
 
 	let app_context = AppContext { enforcer, database };
 
@@ -105,8 +96,8 @@ async fn main() -> std::io::Result<()> {
 
 	HttpServer::new(move || {
 		App::new()
-			.data(schema.clone())
-			.data(app_context.clone())
+			.app_data(Data::new(schema.clone()))
+			.app_data(Data::new(app_context.clone()))
 			.service(web::resource("/graphql").guard(guard::Post()).to(index))
 		// .service(
 		//     web::resource("/")

@@ -1,5 +1,5 @@
 use async_graphql::{Context, Object, Result, guard::Guard};
-use casbinrs_mongo_adapter::casbin::{MgmtApi, RbacApi};
+use sqlx_adapter::casbin::{MgmtApi, RbacApi};
 
 use crate::{graphql::{authorization::UserRolesInput, client_guard::ClientGuard}, types::AppContext};
 

@@ -1,7 +1,7 @@
 # Database
 database:
   # Connection URI
-  uri: mongodb://root:example@localhost:27017
+  uri: postgres://kharon:kharon@localhost:5432/kharon
   # Database name
   name: kharon
 # Casbin access model
