@@ -22,9 +22,9 @@ use ormx::{self, Table};
 #[derive(Debug, ormx::Table)]
 #[ormx(table = "auth_client", id = id)]
 pub struct AuthClient {
-    // map this field to the column "id"
-    #[ormx(column = "id")]
-    pub id: i32,
-		pub name: String,
-		pub password: String,
+	// map this field to the column "id"
+	#[ormx(column = "id")]
+	pub id: i32,
+	pub name: String,
+	pub password: String,
 }

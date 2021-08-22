@@ -811,6 +811,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "77c90badedccf4105eca100756a0b1289e191f6fcbdadd3cee1d2f614f97da8f"
 
 [[package]]
+name = "dtoa"
+version = "0.4.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "56899898ce76aaf4a0f24d914c97ea6ed976d42fec6ad33fcbb0a1103e07b2b0"
+
+[[package]]
 name = "either"
 version = "1.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1195,6 +1201,7 @@ dependencies = [
  "futures",
  "once_cell",
  "ormx",
+ "paperclip",
  "serde",
  "sqlx",
  "sqlx-adapter",
@@ -1264,6 +1271,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0382880606dff6d15c9476c416d18690b72742aa7b605bb6dd6ec9030fbf07eb"
 dependencies = [
  "scopeguard",
+ "serde",
 ]
 
 [[package]]
@@ -1500,6 +1508,53 @@ checksum = "afe154fda773c54b533b54d4c9b97949aa37ebe5d77cdabc497e494f3ec05418"
 dependencies = [
  "itertools",
  "once_cell",
+ "proc-macro-error",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "paperclip"
+version = "0.5.0"
+source = "git+https://github.com/sfisol/paperclip.git?rev=fe345c2c8df47a29dcf7a7e5dcdb961d666b098a#fe345c2c8df47a29dcf7a7e5dcdb961d666b098a"
+dependencies = [
+ "anyhow",
+ "itertools",
+ "once_cell",
+ "paperclip-core",
+ "parking_lot",
+ "semver",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "serde_yaml",
+ "thiserror",
+ "url",
+]
+
+[[package]]
+name = "paperclip-core"
+version = "0.3.0"
+source = "git+https://github.com/sfisol/paperclip.git?rev=fe345c2c8df47a29dcf7a7e5dcdb961d666b098a#fe345c2c8df47a29dcf7a7e5dcdb961d666b098a"
+dependencies = [
+ "mime",
+ "once_cell",
+ "paperclip-macros",
+ "parking_lot",
+ "regex",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "thiserror",
+]
+
+[[package]]
+name = "paperclip-macros"
+version = "0.4.0"
+source = "git+https://github.com/sfisol/paperclip.git?rev=fe345c2c8df47a29dcf7a7e5dcdb961d666b098a#fe345c2c8df47a29dcf7a7e5dcdb961d666b098a"
+dependencies = [
+ "mime",
  "proc-macro-error",
  "proc-macro2",
  "quote",
@@ -1932,6 +1987,18 @@ dependencies = [
  "itoa",
  "ryu",
  "serde",
+]
+
+[[package]]
+name = "serde_yaml"
+version = "0.8.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "039ba818c784248423789eec090aab9fb566c7b94d6ebbfa1814a9fd52c8afb2"
+dependencies = [
+ "dtoa",
+ "linked-hash-map",
+ "serde",
+ "yaml-rust",
 ]
 
 [[package]]

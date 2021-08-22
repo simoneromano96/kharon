@@ -1,8 +1,9 @@
-mod auth;
+mod auth_client;
 mod graphql;
 mod init;
 mod settings;
 mod types;
+mod authorization;
 
 use std::sync::Arc;
 use tokio::sync::Mutex;
@@ -16,7 +17,7 @@ use graphql::{MutationRoot, MySchema, QueryRoot};
 use init::init_casbin;
 use web::Data;
 
-use crate::{auth::authenticate_client, init::init_sqlx, settings::APP_SETTINGS, types::AppContext};
+use crate::{auth_client::authenticate_client, init::init_sqlx, settings::APP_SETTINGS, types::AppContext};
 
 /*
 struct SubscriptionRoot;
