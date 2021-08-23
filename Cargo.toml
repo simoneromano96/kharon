@@ -1,6 +1,6 @@
 [package]
 name = "kharon"
-version = "0.2.4-alpha.0"
+version = "0.2.4"
 authors = ["Simono il magnifico <simoneromano@tutanota.de>"]
 edition = "2018"
 license = "MIT/Apache-2.0"
