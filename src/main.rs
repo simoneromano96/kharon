@@ -1,12 +1,9 @@
 mod auth_client;
+mod authorization;
 mod graphql;
 mod init;
 mod settings;
 mod types;
-mod authorization;
-
-use std::sync::Arc;
-use tokio::sync::Mutex;
 
 use actix_web::{guard, http::header::Header, web, App, HttpRequest, HttpServer};
 use actix_web_httpauth::headers::authorization::{Authorization, Basic};
@@ -15,6 +12,8 @@ use async_graphql::Schema;
 use async_graphql_actix_web::{Request, Response};
 use graphql::{MutationRoot, MySchema, QueryRoot};
 use init::init_casbin;
+use std::sync::Arc;
+use tokio::sync::Mutex;
 use web::Data;
 
 use crate::{auth_client::authenticate_client, init::init_sqlx, settings::APP_SETTINGS, types::AppContext};
@@ -35,6 +34,7 @@ impl SubscriptionRoot {
 
 async fn index(schema: Data<MySchema>, app_context: Data<AppContext>, req: HttpRequest, gql_request: Request) -> Response {
 	let basic_auth = Authorization::<Basic>::parse(&req);
+	// let bearer_auth = Authorization::<Bearer>::parse(&req);
 
 	let mut request = gql_request.into_inner();
 	if let Ok(basic) = basic_auth {
@@ -108,7 +108,7 @@ async fn main() -> std::io::Result<()> {
 		// )
 		// .service(web::resource("/").guard(guard::Get()).to(gql_playgound))
 	})
-	.bind(format!("0.0.0.0:{}", APP_SETTINGS.app.port))?
+	.bind(format!("0.0.0.0:{}", APP_SETTINGS.server.port))?
 	.run()
 	.await
 }

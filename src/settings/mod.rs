@@ -1,4 +1,4 @@
-mod app;
+mod server;
 mod casbin;
 mod database;
 
@@ -8,7 +8,7 @@ use config::{Config, Environment, File};
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 
-use self::{app::AppConfig, casbin::CasbinConfig, database::DatabaseConfig};
+use self::{server::ServerConfig, casbin::CasbinConfig, database::DatabaseConfig};
 
 pub static APP_SETTINGS: Lazy<Settings> = Lazy::new(init_app_settings);
 
@@ -30,8 +30,8 @@ pub struct LoggerConfig {
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Settings {
-	/// App and server configuration
-	pub app: AppConfig,
+	/// HTTP Server configuration
+	pub server: ServerConfig,
 	/// Casbin configuration
 	pub casbin: CasbinConfig,
 	/// SQLx database configuration

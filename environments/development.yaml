@@ -3,10 +3,10 @@ database:
   # Connection URI
   uri: postgres://kharon:kharon@localhost:5432/kharon
   # Database name
-  name: kharon
+  # name: kharon
 # Casbin access model
 casbin:
   accessmodelpath: ./environments/access_model/rbac_model.conf
 # HTTP Server
-app:
+server:
   port: 8000
