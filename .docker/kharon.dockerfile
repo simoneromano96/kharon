@@ -4,6 +4,8 @@ WORKDIR /usr/src/kharon
 
 COPY . .
 
+ENV SQLX_OFFLINE=true
+
 RUN cargo install --path .
 
 FROM debian:stable-slim as production
