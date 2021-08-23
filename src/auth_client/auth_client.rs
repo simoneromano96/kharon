@@ -17,13 +17,14 @@
 // 	pub password: String,
 // }
 
-use ormx;
+// use ormx;
+use sqlx;
 
-#[derive(Debug, ormx::Table)]
-#[ormx(table = "auth_client", id = id)]
+#[derive(sqlx::FromRow)]
+// #[ormx(table = "auth_client", id = id)]
 pub struct AuthClient {
 	// map this field to the column "id"
-	#[ormx(column = "id")]
+	// #[ormx(column = "id")]
 	pub id: i32,
 	pub name: String,
 	pub password: String,
