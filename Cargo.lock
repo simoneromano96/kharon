@@ -1189,7 +1189,7 @@ dependencies = [
 
 [[package]]
 name = "kharon"
-version = "0.2.4"
+version = "0.2.5-alpha.0"
 dependencies = [
  "actix-web",
  "actix-web-httpauth",
