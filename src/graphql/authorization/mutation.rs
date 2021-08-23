@@ -23,7 +23,7 @@ impl AuthorizationMutation {
 		let e = get_enforcer_from_context(ctx).await?;
 		let added = add_policy(input, e).await?;
 
-		Ok(String::from(format!("Added: {:?}", added)))
+		Ok(format!("Added: {:?}", added))
 	}
 
 	/// Add role to a user
@@ -32,7 +32,7 @@ impl AuthorizationMutation {
 		let e = get_enforcer_from_context(ctx).await?;
 		let added = add_role_for_user(input, e).await?;
 
-		Ok(String::from(format!("Added: {:?}", added)))
+		Ok(format!("Added: {:?}", added))
 	}
 
 	/// Add roles to a user
@@ -41,7 +41,7 @@ impl AuthorizationMutation {
 		let e = get_enforcer_from_context(ctx).await?;
 		let all_added = add_roles_for_user(input, e).await?;
 
-		Ok(String::from(format!("Added: {:?}", all_added)))
+		Ok(format!("Added: {:?}", all_added))
 	}
 
 	/// Add a permission to a user
@@ -50,7 +50,7 @@ impl AuthorizationMutation {
 		let e = get_enforcer_from_context(ctx).await?;
 		let added = add_permission_for_user(input, e).await?;
 
-		Ok(String::from(format!("Added: {:?}", added)))
+		Ok(format!("Added: {:?}", added))
 	}
 
 	/// Add permissions to a user
@@ -59,7 +59,7 @@ impl AuthorizationMutation {
 		let e = get_enforcer_from_context(ctx).await?;
 		let added = add_permissions_for_user(input, e).await?;
 
-		Ok(String::from(format!("Added: {:?}", added)))
+		Ok(format!("Added: {:?}", added))
 	}
 
 	/// Delete role from a user
@@ -68,7 +68,7 @@ impl AuthorizationMutation {
 		let e = get_enforcer_from_context(ctx).await?;
 		let added = delete_role_for_user(input, e).await?;
 
-		Ok(String::from(format!("Deleted: {:?}", added)))
+		Ok(format!("Deleted: {:?}", added))
 	}
 
 	/// Delete all roles from a user
@@ -77,7 +77,7 @@ impl AuthorizationMutation {
 		let e = get_enforcer_from_context(ctx).await?;
 		let all_added = delete_all_roles_for_user(input, e).await?;
 
-		Ok(String::from(format!("Deleted: {:?}", all_added)))
+		Ok(format!("Deleted: {:?}", all_added))
 	}
 
 	/// Delete a user
@@ -87,7 +87,7 @@ impl AuthorizationMutation {
 
 		let deleted = e.delete_user(&user).await?;
 
-		Ok(String::from(format!("Deleted: {:?}", deleted)))
+		Ok(format!("Deleted: {:?}", deleted))
 	}
 
 	/// Delete a role
@@ -97,7 +97,7 @@ impl AuthorizationMutation {
 
 		let deleted = e.delete_role(&role).await?;
 
-		Ok(String::from(format!("Deleted: {:?}", deleted)))
+		Ok(format!("Deleted: {:?}", deleted))
 	}
 
 	/// Delete a permission
@@ -107,6 +107,6 @@ impl AuthorizationMutation {
 
 		let deleted = e.delete_permission(vec![permission]).await?;
 
-		Ok(String::from(format!("Deleted: {:?}", deleted)))
+		Ok(format!("Deleted: {:?}", deleted))
 	}
 }

@@ -13,8 +13,8 @@ pub fn has_permission_for_user(input: PermissionInput, e: MutexGuard<Enforcer>) 
 		action,
 		object,
 	} = input;
-	let authorized = e.has_permission_for_user(&subject, vec![domain, object, action]);
-	authorized
+	
+	e.has_permission_for_user(&subject, vec![domain, object, action])
 }
 
 /// Ask if someone has a permission, this enforces a generic policy
@@ -32,22 +32,22 @@ pub fn enforce_policy(input: PermissionInput, e: MutexGuard<Enforcer>) -> Result
 /// Asks all the roles of a user in the given domain.
 pub fn get_roles_for_user(input: UserRolesInput, mut e: MutexGuard<Enforcer>) -> Vec<String> {
 	let UserRolesInput { subject, domain } = input;
-	let roles = e.get_roles_for_user(&subject, Some(&domain));
-	roles
+	
+	e.get_roles_for_user(&subject, Some(&domain))
 }
 
 /// Get all the users of a role in the given domain.
 pub fn get_users_for_role(input: UsersForRoleInput, e: MutexGuard<Enforcer>) -> Vec<String> {
 	let UsersForRoleInput { role, domain } = input;
-	let users = e.get_users_for_role(&role, Some(&domain));
-	users
+	
+	e.get_users_for_role(&role, Some(&domain))
 }
 
 /// Asks if a user has a role in the given domain.
 pub fn has_role_for_user(input: UserRoleInput, mut e: MutexGuard<Enforcer>) -> bool {
 	let UserRoleInput { subject, role, domain } = input;
-	let has_role = e.has_role_for_user(&subject, &role, Some(&domain));
-	has_role
+	
+	e.has_role_for_user(&subject, &role, Some(&domain))
 }
 
 /// Add a specific policy, the subject is either a role or a user.
