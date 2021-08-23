@@ -15,7 +15,7 @@ pub struct AuthorizationQuery;
 impl AuthorizationQuery {
 	/// Ask if someone has a permission
 	///
-	/// This only works with ABAC, the subject is the user, never the role here
+	/// The subject can be either a role or a user.
 	#[graphql(cache_control(max_age = 3600), guard(ClientGuard()))]
 	async fn has_permission(&self, ctx: &Context<'_>, input: PermissionInput) -> Result<String> {
 		let e = get_enforcer_from_context(ctx).await?;
@@ -29,8 +29,6 @@ impl AuthorizationQuery {
 	}
 
 	/// Ask if someone has a permission
-	///
-	/// Works with either a role or a user
 	///
 	/// The subject can be either a user or a role
 	#[graphql(cache_control(max_age = 3600), guard(ClientGuard()))]

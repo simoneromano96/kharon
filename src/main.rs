@@ -34,11 +34,11 @@ impl SubscriptionRoot {
 */
 
 async fn index(schema: Data<MySchema>, app_context: Data<AppContext>, req: HttpRequest, gql_request: Request) -> Response {
-	let auth = Authorization::<Basic>::parse(&req);
+	let basic_auth = Authorization::<Basic>::parse(&req);
 
 	let mut request = gql_request.into_inner();
-	if let Ok(token) = auth {
-		if let Ok(client) = authenticate_client(&app_context.database, token.into_scheme()).await {
+	if let Ok(basic) = basic_auth {
+		if let Ok(client) = authenticate_client(&app_context.database, basic.into_scheme()).await {
 			request = request.data(client);
 		}
 	}
