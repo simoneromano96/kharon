@@ -17,7 +17,7 @@
 // 	pub password: String,
 // }
 
-use ormx::{self, Table};
+use ormx;
 
 #[derive(Debug, ormx::Table)]
 #[ormx(table = "auth_client", id = id)]
