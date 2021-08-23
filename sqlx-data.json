@@ -33,6 +33,39 @@
       ]
     }
   },
+  "939ef3d2e441ed2be6c3f2a76a063e0226c49fdda3aea45bf29903fa1b317817": {
+    "query": "SELECT * FROM auth_client WHERE name = $1 AND password = $2",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Int4"
+        },
+        {
+          "ordinal": 1,
+          "name": "name",
+          "type_info": "Varchar"
+        },
+        {
+          "ordinal": 2,
+          "name": "password",
+          "type_info": "Varchar"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Text"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false
+      ]
+    }
+  },
   "acc74f3565815dffdcb826707cbfe4cb56cba1b81f0565569be31911c23b38a3": {
     "query": "DELETE FROM auth_client WHERE id = $1",
     "describe": {
