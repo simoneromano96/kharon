@@ -2,7 +2,7 @@ use async_graphql::{guard::Guard, Context, Result};
 use async_trait::async_trait;
 use thiserror::Error;
 
-use crate::auth::AuthClient;
+use crate::auth_client::AuthClient;
 
 #[derive(Error, Debug)]
 pub enum ClientGuardErrors {

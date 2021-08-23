@@ -1,4 +1,4 @@
-FROM rustlang/rust:nightly as builder
+FROM rustlang/rust@sha256:ac9481b8dbb515bc957602843a1f9e8aa82fc90aef65c61b6448065575721254 as builder
 
 WORKDIR /usr/src/kharon
 

@@ -3,6 +3,7 @@ use sqlx::{Pool, Postgres, Result, postgres::PgPoolOptions};
 use crate::settings::APP_SETTINGS;
 
 pub async fn init_sqlx() -> Result<Pool<Postgres>> {
+  println!("init_sqlx");
   // Create a connection pool
   let pool: Pool<Postgres> = PgPoolOptions::new()
       // .max_connections(APP_CONFIG.database.poolsize)
@@ -11,9 +12,9 @@ pub async fn init_sqlx() -> Result<Pool<Postgres>> {
 
   // info!("DB client initialised");
 
-  // sqlx::migrate!("src/sql/migrations")
-  //     .run(&pool)
-  //     .await?;
+  sqlx::migrate!("src/sql/migrations")
+      .run(&pool)
+      .await?;
 
   Ok(pool)
 }

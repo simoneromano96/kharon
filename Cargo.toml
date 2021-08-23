@@ -11,43 +11,46 @@ publish = false
 
 [dependencies]
 # HTTP Server
-actix-web = "3.3.2"
+actix-web = "4.0.0-beta.8"
 # Bearer token extractor
-actix-web-httpauth = "0.5.1"
+actix-web-httpauth = "0.6.0-beta.2"
 # Error wrapper
-anyhow = "1.0.40"
+anyhow = "1.0.43"
 # GraphQL Implementation
-async-graphql = "2.8.5"
+async-graphql = { git = "https://github.com/async-graphql/async-graphql.git", rev = "57dfaf62363242156648b713b59e178191daac85" }
 # GraphQL Actix Adapter
-async-graphql-actix-web = "2.8.5"
+async-graphql-actix-web = { git = "https://github.com/async-graphql/async-graphql.git", rev = "57dfaf62363242156648b713b59e178191daac85" }
 # Add async traits
-async-trait = "0.1.50"
+async-trait = "0.1.51"
 # Casbin adapter for mongo
-casbinrs-mongo-adapter = { git = "https://github.com/simoneromano96/casbinrs-mongo-adapter.git", rev = "b4257c9aee95332766acfe4d3aef211cc9f90e35" }
+# casbinrs-mongo-adapter = { git = "https://github.com/simoneromano96/casbinrs-mongo-adapter.git", rev = "b4257c9aee95332766acfe4d3aef211cc9f90e35" }
 # Configuration helper
 config = { version = "0.11.0", default-features = false, features = ["yaml"] }
 # Future helpers
-futures = "0.3.15"
+futures = "0.3.16"
 # Lazy static evaluation
-once_cell = "1.7.2"
+once_cell = "1.8.0"
 # Serialization/Deserialization
-serde = "1.0.126"
+serde = { version = "1.0.127", features = ["derive"]}
 # Error helpers
-thiserror = "1.0.25"
+thiserror = "1.0.26"
 # SQLx
-# sqlx = { version = "0.5.2", default-features = false, features = [ "runtime-actix-native-tls", "macros", "postgres", "migrate" ] }
+sqlx = { version = "0.5.6", default-features = false, features = [ "runtime-actix-native-tls", "macros", "postgres", "migrate", "offline" ] }
 # Casbin adapter for SQLx
-# sqlx-adapter = { version = "0.4.1", default-features = false, features = ["postgres", "runtime-actix-native-tls", "offline"] }
+sqlx-adapter = { version = "0.4.2", default-features = false, features = ["postgres", "runtime-actix-native-tls", "offline"] }
 # Tokio runtime
-tokio = "0.2.25"
+tokio = "1.10.0"
+ormx = { version = "0.7.0", features = ["postgres"]}
 # Mongo ODM
-wither = "0.9.0"
+# wither = "0.9.0"
+# OpenAPI
+paperclip = { git = "https://github.com/sfisol/paperclip.git", rev = "fe345c2c8df47a29dcf7a7e5dcdb961d666b098a" }
 
-# Test
-[dev-dependencies]
-actix-rt = "2.2.0"
-# GraphQL client
-cynic = "0.13.2"
-serde_json = "1.0.64"
-# Tokio runtime
-tokio = "0.2.25"
+# # Test
+# [dev-dependencies]
+# actix-rt = "2.2.0"
+# # GraphQL client
+# cynic = "0.13.2"
+# serde_json = "1.0.64"
+# # Tokio runtime
+# tokio = "0.2.25"
